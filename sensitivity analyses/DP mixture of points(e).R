@@ -1,6 +1,6 @@
 pre_term_data_58 = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\pre_term_data58.csv")
 
-### Binomial-DPp-n-(Unif/Gamma) ###
+### DP mixture of points(e) ###
 library(R2jags)
 set.seed(1958)
 cat("
@@ -644,6 +644,7 @@ for (r in adjusted_rows) {
 abline(h = 8.5, col = "gray60", lty = "dotted", lwd = 0.7)
 
 dev.off()
+
 
 
 
