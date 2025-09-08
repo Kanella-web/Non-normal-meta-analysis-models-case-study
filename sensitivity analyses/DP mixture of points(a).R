@@ -1,6 +1,6 @@
 pre_term_data_58 = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\pre_term_data58.csv")
 
-### Binomial-DPp-26-N(HN/Unif) ###
+### DP mixture of points(a) ###
 if (requireNamespace("neojags", quietly = TRUE)){
   neojags::load.neojagsmodule()
 } 
@@ -710,6 +710,7 @@ abline(h = 4.5, col = "gray60", lty = "dotted", lwd = 0.7)
 
 # Close the device to save the file
 dev.off()
+
 
 
 
