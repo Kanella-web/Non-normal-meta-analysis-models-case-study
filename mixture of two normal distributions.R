@@ -1,7 +1,7 @@
 
 pre_term_data_58 = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\pre_term_data58.csv")
 
-############ FINITE NORMAL MIXTURE MODEL WITH DIRICHLET WEIGHTS AND SMDs ############
+############ MIXTURE OF TWO NORMAL DISTRIBUTIONS ############
 set.seed(2058)
 ####normal-2normal-mixture(Gamma/dir) model###
 library(R2jags)
@@ -529,6 +529,7 @@ adjusted_rows <- n_rows - row_positions + 0.5  # +0.5 centers the line between g
 for (r in adjusted_rows) {
   abline(h = r, col = "gray60", lty = "dotted", lwd = 0.7)
 }
+
 
 
 
