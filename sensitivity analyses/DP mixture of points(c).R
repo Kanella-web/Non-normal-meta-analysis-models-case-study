@@ -2,6 +2,7 @@ pre_term_data_58 = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\da
 
 set.seed(458)
 library(R2jags)
+###DP mixture of points(c)####
 cat("
 model {
  
@@ -647,6 +648,7 @@ for (r in adjusted_rows) {
 abline(h = 53.5, col = "gray60", lty = "dotted", lwd = 0.7)
 
 dev.off()
+
 
 
 
