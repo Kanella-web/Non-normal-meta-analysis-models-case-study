@@ -1,7 +1,7 @@
 
 pre_term_data_58 = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\pre_term_data58.csv")
 
-############ FINITE t-MIXTURE MODEL WITH DIRICHLET WEIGHTS AND SMDs ############
+############ MIXTURE OF TWO T-DISTRIBUTIONS ############
 set.seed(2158)
 ##normal-2t-mixture(Gamma/dir)
 library(R2jags)
@@ -578,4 +578,5 @@ for (r in adjusted_rows) {
 }
 
 dev.off()
+
 
