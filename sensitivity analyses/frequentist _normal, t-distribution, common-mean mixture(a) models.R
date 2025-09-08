@@ -79,6 +79,7 @@ write.csv(metaplus_t, "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pr
 
 ####################### METAPLUS TMIXTURE ######################
 ########## Using metaplus mixture to test for outliers #####
+### common mean mixture model(a) ###
 set.seed(1458)
 library(metaplus)
 
@@ -126,5 +127,6 @@ prob_out = round(prob_oyt_study$outlier.prob,3)
 prob_out_study = cbind.data.frame(prob_oyt_study$`pre_term_data_58$Study`, prob_out)
 
 write.csv(prob_out_study, "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\frequentist models_58\\common_mean_mix_model_58\\outlier_prob_per_study_58SMDs.csv",row.names=FALSE )  
+
 
 
