@@ -16,7 +16,7 @@ inference=function (effect, sigmasq, start_v=-1, start_left=1, start_right=1)
   print("4 parameter skew model inference")
   print(summary(mle4))
 }
-
+### common mean mixture(b)
 LL_3parameter=function (x, effect, sigmasq) 
 {
   # mixture of 2 normal symmetric
@@ -43,7 +43,7 @@ LL_3parameter=function (x, effect, sigmasq)
   # for Newton-raphson (NR) return scalar objf, ie return(sum(objf))
   return(sum(objf))
 }
-
+## mixture of normal and exponentially normal distributions 
 LL_4parameter =function (x, effect, sigmasq) 
 {
   # mixture of normal and lagged normal
@@ -195,4 +195,5 @@ res_4P = data.frame(mu_4P, LB_mu_4P, UB_mu_4P, tau_4P, LB_tau_4P, UB_tau_4P,
                     prec_mu_4P, prec_tau2_4P)
 
 write.csv(res_4P, "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\frequentist models_58\\4_parameter_skewed_model_58\\res_4P_skewed_model.csv",row.names=FALSE )  
+
 
