@@ -4,7 +4,7 @@ pre_term_data_58 = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\da
 library(cmdstanr)
 check_cmdstan_toolchain(fix = TRUE, quiet = TRUE)
 check_cmdstan_toolchain()
-####  normal-t(U) model
+####  t-distribution model ###
 filet_distr_U <- file.path(cmdstan_path(), "examples", "Stanmodels", "normal_t_U_SMDs.stan")
 modt_distr_U <- cmdstan_model(filet_distr_U)
 
@@ -68,7 +68,7 @@ UBdelta_new_t_distr_U <- t_distr_U_res_SMDs[ddnt_U,]$q95
 Rhat_delta_newt_distr_U <-  t_distr_U_res_SMDs[ddnt_U,]$rhat
 prec_delta_new_t_distr_U <- UBdelta_new_t_distr_U - LBdelta_new_t_distr_U
 
-#### kurtosis is defined only for nu > 4 while we have set nu > 2.5
+#### kurtosis is defined only for nu > 4 while we have set nu > 2.5 to allow for heavier tails
 ddnt1_U <- grepl("kurt",t_distr_U_res_SMDs$variable)
 
 kurt_t_distr_U <- t_distr_U_res_SMDs[ddnt1_U,]$median
@@ -117,32 +117,8 @@ t_distr.res_SMDs1<-data.frame(median=median_t_distr_U,
 )
 
 kurtosis = data.frame(kurt_t_distr_U, LBkurt_t_distr_U, UBkurt_t_distr_U)
-write.csv(kurtosis , "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\STAN_models_58\\t_U_pred_58\\kurt_SMDs_normal_t_pred_58.csv",row.names=FALSE )  
 
+write.csv(kurtosis , "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\STAN_models_58\\t_U_pred_58\\kurt_SMDs_normal_t_pred_58.csv",row.names=FALSE )  
 write.csv(t_distr.res_SMDs1 , "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\STAN_models_58\\t_U_pred_58\\res_SMDs_normal_t_pred_58.csv",row.names=FALSE )  
 write.csv( deltatt_distr.res_SMDs , "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\STAN_models_58\\t_U_pred_58\\rel_eff_normal_t_pred_58.csv",row.names=FALSE )  
 
-############ FOREST PLOTS OF THE NORMAL DATA APPLICATION############
-############# FOREST PLOT FOR NORMAL-T(HN) MODEL #######
-Normal_t_U_mod_rel_eff = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\STAN_models_58\\t_U_pred_58\\rel_eff_normal_t_pred_58.csv" )  
-Normal_t_U_mod_es = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\STAN_models_58\\t_U_pred_58\\res_SMDs_normal_t_pred_58.csv" )  
-
-extra_dataN_tU = Normal_t_U_mod_rel_eff$median
-lb_N_tU = Normal_t_U_mod_rel_eff$q5
-ub_N_tU = Normal_t_U_mod_rel_eff$q95
-
-library(metafor)
-forest(x = extra_dataN_tU, 
-       ci.lb = lb_N_tU, 
-       ci.ub = ub_N_tU, 
-       slab = pre_term_data_58$Study,
-       psize = 2.5,
-       cex = 0.4,
-       lwd = 1.5,
-       ylim =c(-1,68))
-
-
-text(c(-5.3, 1.6), 68, c("Studies" , "Estimate[95% CI]"),   font=2, cex=1)
-addpoly(x= Normal_t_U_mod_es$median, ci.lb = Normal_t_U_mod_es$lowerCI ,
-        ci.ub = Normal_t_U_mod_es$upperCI , rows=-2)
-abline(h=0, lwd=0.1, col="black", lty=1)
