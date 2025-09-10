@@ -2,7 +2,7 @@
 pre_term_data_58 = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\pre_term_data58.csv")
 
 library(metafor)
-# ################################## normal-ST(U) model #############################
+# ################################## Skew-t model #############################
 library(cmdstanr)
 check_cmdstan_toolchain(fix = TRUE, quiet = TRUE)
 check_cmdstan_toolchain()
@@ -139,31 +139,4 @@ res1_ST_U<-data.frame(median=median_ST_U,
 write.csv(res1_ST_U , "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\STAN_models_58\\ST_U_pred_58\\res_normal_ST_U_SMDs.csv",row.names=FALSE )  
 write.csv(deltaST_U , "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\STAN_models_58\\ST_U_pred_58\\rel_eff_normal_ST_U_SMDs.csv",row.names=FALSE )  
 
-# write.csv(res1_ST_U , "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\STAN_models_58\\ST_U_pred_58\\v_2.5res_normal_ST_U_SMDs.csv",row.names=FALSE )  
-# write.csv(deltaST_U , "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\STAN_models_58\\ST_U_pred_58\\v_2.5_rel_eff_normal_ST_U_SMDs.csv",row.names=FALSE )  
-
-############# FOREST PLOT FOR NORMAL-ST(HN) MODEL #######
-Normal_ST_U_mod_rel_eff = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\STAN_models_58\\ST_U_pred_58\\rel_eff_normal_ST_U_SMDs.csv" )  
-Normal_ST_U_mod_es = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\STAN_models_58\\ST_U_pred_58\\res_normal_ST_U_SMDs.csv" )  
-
-
-extra_dataN_STU = Normal_ST_U_mod_rel_eff$median
-lb_N_STU = Normal_ST_U_mod_rel_eff$q5
-ub_N_STU = Normal_ST_U_mod_rel_eff$q95
-
-library(metafor)
-forest(x = extra_dataN_STU, 
-       ci.lb = lb_N_STU, 
-       ci.ub = ub_N_STU, 
-       slab = pre_term_data_58$Study,
-       psize = 2.5,
-       cex = 0.4,
-       lwd = 1.5,
-       ylim =c(-1,68))
-
-
-text(c(-5.3, 1.5), 68, c("Studies" , "Estimate[95% CI]"),   font=2, cex=1)
-addpoly(x= Normal_ST_U_mod_es$median, ci.lb = Normal_ST_U_mod_es$lowerCI ,
-        ci.ub = Normal_ST_U_mod_es$upperCI , rows=-2)
-abline(h=0, lwd=0.1, col="black", lty=1)
 
