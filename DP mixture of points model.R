@@ -1,7 +1,7 @@
 
 pre_term_data_58 = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\pre_term_data58.csv")
 
-### Binomial-DPp-26-N(U/Unif) ###
+### DP mixture of points model ###
 library(R2jags)
 set.seed(158)
 cat("
@@ -445,4 +445,5 @@ write.csv(listaDPp_U_U26_normal_base, "C:\\Users\\Lela Panag\\Desktop\\2nd PhD a
 write.csv(prob_DPp_U_U26_normal_base, "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\DPp_U_U_58_pred\\max_prob_cluster_DPp_26_U_U_normal_base.csv",row.names=FALSE )  
 write.csv(clusters_means_DPp_26U_U_normal_base, "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\DPp_U_U_58_pred\\\\clusters_means_DPp_26_U_U_normal_base.csv",row.names=FALSE )  
 write.csv(DPpresults_U_U_26_normal_base, "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\DPp_U_U_58_pred\\all_res_DPp_26_U_U_normal_base.csv",row.names=FALSE )  
+
 
