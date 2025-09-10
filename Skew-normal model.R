@@ -3,7 +3,7 @@ pre_term_data_58 = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\da
 
 library(dplyr)
 library(metafor)
-# ################################## normal-SN(HN) model #############################
+# ################################## Skew-normal model #############################
 library(cmdstanr)
 check_cmdstan_toolchain(fix = TRUE, quiet = TRUE)
 check_cmdstan_toolchain()
@@ -126,29 +126,5 @@ res1_SN_HN<-data.frame(median=median_SN_U,
 write.csv(res1_SN_HN , "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\STAN_models_58\\SN_U_pred_58\\res_normal_U_HN_SMDs.csv",row.names=FALSE )  
 write.csv( deltaSN_U , "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\STAN_models_58\\SN_U_pred_58\\rel_eff_normal_U_HN_SMDs.csv",row.names=FALSE )  
 
-############# FOREST PLOT FOR NORMAL-SN(HN) MODEL #######
-Normal_SN_U_mod_rel_eff = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\STAN_models_58\\SN_U_pred_58\\rel_eff_normal_U_HN_SMDs.csv" )  
-Normal_SN_U_mod_es = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\STAN_models_58\\SN_U_pred_58\\res_normal_U_HN_SMDs.csv" )  
-
-
-extra_dataN_SNU = Normal_SN_U_mod_rel_eff$median
-lb_N_SNU = Normal_SN_U_mod_rel_eff$q5
-ub_N_SNU = Normal_SN_U_mod_rel_eff$q95
-
-library(metafor)
-forest(x = extra_dataN_SNU, 
-       ci.lb = lb_N_SNU, 
-       ci.ub = ub_N_SNU, 
-       slab = pre_term_data_58$Study,
-       psize = 2.5,
-       cex = 0.4,
-       lwd = 1.5,
-       ylim =c(-1,68))
-
-
-text(c(-5.3, 1.5), 68, c("Studies" , "Estimate[95% CI]"),   font=2, cex=1)
-addpoly(x= Normal_SN_U_mod_es$median, ci.lb = Normal_SN_U_mod_es$lowerCI ,
-        ci.ub = Normal_SN_U_mod_es$upperCI , rows=-2)
-abline(h=0, lwd=0.1, col="black", lty=1)
 
 
