@@ -1,24 +1,6 @@
 pre_term_data_58 = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\pre_term_data58.csv")
 
-########### VISUALIZE THE DATASET #########
-library(metafor)
-
-data_SMDs = escalc(measure = "SMD", m1i = pre_term_data_58$mean_EPT.VPT, m2i =  pre_term_data_58$mean_FT,
-                   sd1i = pre_term_data_58$sd_EPT.VPT, sd2i =  pre_term_data_58$sd_FT,
-                   n1i = pre_term_data_58$n_EPT.VPT, n2i = pre_term_data_58$n_FT, slab = pre_term_data_58$Study)
-
-plot(density(data_SMDs$yi))
-
-######### normal model ###########
-library(metafor)
-freq_norm1 = rma(measure = "SMD", m1i = pre_term_data_58$mean_EPT.VPT, m2i =  pre_term_data_58$mean_FT,
-                 sd1i = pre_term_data_58$sd_EPT.VPT, sd2i =  pre_term_data_58$sd_FT,
-                 n1i = pre_term_data_58$n_EPT.VPT, n2i = pre_term_data_58$n_FT, slab = pre_term_data_58$Study,
-                 method = "REML")
-forest(freq_norm1, cex = 0.4)
-
-
-######### NORMAL MODEL FOR CONTINUOUS OUTCOMES ##############
+######### (Bayesian) NORMAL MODEL  ##############
 #### Normal-normal(U) model
 set.seed(858)
 library(R2jags)
@@ -159,34 +141,5 @@ res_NU_SMDs <- cbind.data.frame(mu_NU_SMDs, LB_mu_NU_SMDs, UB_mu_NU_SMDs, tau2_N
 
 write.csv(res_NU_SMDs, "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\Nomal_U_58\\N_U_res_58SMDs.csv",row.names=FALSE )  
 write.csv(lista_NU_SMDs, "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\Nomal_U_58\\rel_eff_N_U_58SMDs.csv",row.names=FALSE )  
-
-
-############# FOREST PLOT FOR NORMAL-NORMAL(HN) MODEL #######
-NormalU_mod_rel_eff = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\Nomal_U_58\\rel_eff_N_U_58SMDs.csv" )  
-NormalU_mod_rel_es = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\Nomal_U_58\\N_U_res_58SMDs.csv" )  
-
-
-extra_dataNU = NormalU_mod_rel_eff$rel_eff
-lb_NU = NormalU_mod_rel_eff$LB_rel_eff
-ub_NU = NormalU_mod_rel_eff$UB_rel_eff
-
-library(metafor)
-forest(x = extra_dataNU, 
-       ci.lb = lb_NU, 
-       ci.ub = ub_NU, 
-       slab = pre_term_data_58$Study,
-       psize = 2.5,
-       cex = 0.4,
-       lwd = 1.5,
-       ylim =c(-1,68))
-
-
-text(c(-5.2, 1.6), 68, c("Studies" , "Estimate[95% CI]"),   font=2, cex=1)
-addpoly(x= NormalU_mod_rel_es$mu_NU_SMDs, ci.lb = NormalU_mod_rel_es$LB_mu_NU_SMDs ,
-        ci.ub = NormalU_mod_rel_es$UB_mu_NU_SMDs , rows=-2)
-abline(h=0, lwd=0.1, col="black", lty=1)
-
-
-
 
 
