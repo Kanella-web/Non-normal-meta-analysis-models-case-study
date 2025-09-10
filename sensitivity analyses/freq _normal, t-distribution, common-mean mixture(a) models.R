@@ -1,8 +1,8 @@
 pre_term_data_58 = read.csv("C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\pre_term_data58.csv")
 
-
+######## Frequentist framework ############
 library(metafor)
-####### NORMAL-NORMAL MODEL
+####### Normal model ###
 set.seed(1258)
 
 freq_norm1 = rma(measure = "SMD", m1i = pre_term_data_58$mean_EPT.VPT, m2i =  pre_term_data_58$mean_FT,
@@ -45,7 +45,7 @@ fr_normal <- cbind(mu_fr_norm,LB_mu_fr_norm, UB_mu_fr_norm,
 write.csv(fr_normal, "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\frequentist models_58\\normal_model_58\\N_res_58SMDs.csv",row.names=FALSE )  
 write.csv(stud_eff, "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\frequentist models_58\\normal_model_58\\N_rel_eff_58SMDs.csv",row.names=FALSE )  
 
-################ METAPLUS T-MODEL ##############
+################ t-model ##############
 library(metaplus)
 set.seed(1358)
 
@@ -77,9 +77,7 @@ metaplus_t <- cbind(mu_metaplust ,LB_mu_metaplust, UB_mu_metaplust, tau2_metaplu
 
 write.csv(metaplus_t, "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\frequentist models_58\\t_model_58\\t_res_58SMDs.csv",row.names=FALSE )  
 
-####################### METAPLUS TMIXTURE ######################
-########## Using metaplus mixture to test for outliers #####
-### common mean mixture model(a) ###
+####################### Mixture of two normal distributions with common component mean(a) model ######################
 set.seed(1458)
 library(metaplus)
 
@@ -96,8 +94,6 @@ metaplusmix <- summary(metaplusmix1)
 #### PROBABILITY OF EACH STUDY BEING AN OUTLIER #####
 set.seed(14581)
 outlierProbs <- outlierProbs(metaplusmix1 )
-
-## study 27 is an outlier with the mixture model and has beed assigned to one cluster using the DPmixture of points model###
 
 mu_metaplusmix <- metaplusmix$results[1]
 LB_mu_metaplusmix <- metaplusmix$results[5]
@@ -127,6 +123,7 @@ prob_out = round(prob_oyt_study$outlier.prob,3)
 prob_out_study = cbind.data.frame(prob_oyt_study$`pre_term_data_58$Study`, prob_out)
 
 write.csv(prob_out_study, "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\frequentist models_58\\common_mean_mix_model_58\\outlier_prob_per_study_58SMDs.csv",row.names=FALSE )  
+
 
 
 
