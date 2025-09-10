@@ -16,10 +16,9 @@ inference=function (effect, sigmasq, start_v=-1, start_left=1, start_right=1)
   print("4 parameter skew model inference")
   print(summary(mle4))
 }
-### common mean mixture(b)
+### Mixture of two normal distribution with common component mean(b) model ##
 LL_3parameter=function (x, effect, sigmasq) 
 {
-  # mixture of 2 normal symmetric
   mu = x[1]
   tau = exp(x[2])
   tausq = tau^2
@@ -43,10 +42,11 @@ LL_3parameter=function (x, effect, sigmasq)
   # for Newton-raphson (NR) return scalar objf, ie return(sum(objf))
   return(sum(objf))
 }
-## mixture of normal and exponentially normal distributions 
+
+## mixture of normal and exponentially modified normal distributions ###
 LL_4parameter =function (x, effect, sigmasq) 
 {
-  # mixture of normal and lagged normal
+
   mu = x[1]
   tau = exp(x[2])
   #if(tau < 0)return(NA)
@@ -119,18 +119,18 @@ data_SMDs = escalc(measure = "SMD", m1i = pre_term_data_58$mean_EPT.VPT, m2i =  
 set.seed(1558)
 inference(data_SMDs$yi, data_SMDs$vi)
 
-#### common-mean-mixture-3P model
-#### mu_3P 
+### Mixture of two normal distribution with common component mean(b) model ##
+#### overall mu
 mu_3P = -0.87165
 LB_mu_3P = mu_3P - 1.96*0.05159
 UB_mu_3P = mu_3P + 1.96*0.05159
 prec_mu_3P = UB_mu_3P - LB_mu_3P
-#### u_3P
+
+#### overall tau
 tau_3P = exp(-1.39621)
 LB_tau_3P = tau_3P - 1.96*0.18569
 UB_tau_3P = tau_3P + 1.96*0.18569
 
-#### u2_3P = sigma2 + tau2
 tau2_3P = (tau_3P)^2
 LB_tau2_3P = (LB_tau_3P)^2
 UB_tau2_3P = (UB_tau_3P)^2
@@ -153,25 +153,24 @@ res_3P = data.frame(mu_3P, LB_mu_3P, UB_mu_3P, tau_3P, LB_tau_3P, UB_tau_3P,
 
 write.csv(res_3P, "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\frequentist models_58\\3_parameter_common_mean_mix_58\\res_3P_common_mean_mix.csv",row.names=FALSE )  
 
-#### lagged-normal-4P model
-#### mu_4P 
+## mixture of normal and exponentially modified normal distributions ###
+#### overall mu
 mu_4P = -0.85362 
 LB_mu_4P = mu_4P - 1.96*0.04871
 UB_mu_4P = mu_4P + 1.96*0.04871
 prec_mu_4P = UB_mu_4P - LB_mu_4P
 
-#### tau_4P
+#### overall tau
 tau_4P = exp(-1.22709)
 LB_tau_4P = tau_4P - 1.96*0.14138
 UB_tau_4P = tau_4P + 1.96*0.14138
 
-#### tau2_4P
 tau2_4P = (tau_4P)^2
 LB_tau2_4P = (LB_tau_4P)^2
 UB_tau2_4P = (UB_tau_4P)^2
 prec_tau2_4P = UB_tau2_4P - LB_tau2_4P
 
-######### for skewness and kurtosis parameters 
+######### for skewness and kurtosis approximations
 a_1 = exp(-0.06535 ) ### 1/a
 a = 1/ a_1          ### a
 b_1 = exp(0.50509)  #### 1/b
@@ -187,7 +186,7 @@ skew = r  ### skewness
 ### alpha = r*a
 alpha = a*r
 ### kurt = 1/alpha
-kurt = 1 / alpha
+kurt = 1 / alpha ## kurtosis
 
 
 res_4P = data.frame(mu_4P, LB_mu_4P, UB_mu_4P, tau_4P, LB_tau_4P, UB_tau_4P,
@@ -195,5 +194,6 @@ res_4P = data.frame(mu_4P, LB_mu_4P, UB_mu_4P, tau_4P, LB_tau_4P, UB_tau_4P,
                     prec_mu_4P, prec_tau2_4P)
 
 write.csv(res_4P, "C:\\Users\\Lela Panag\\Desktop\\2nd PhD article\\data\\pre_term_data58\\frequentist models_58\\4_parameter_skewed_model_58\\res_4P_skewed_model.csv",row.names=FALSE )  
+
 
 
